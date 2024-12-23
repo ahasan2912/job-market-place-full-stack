@@ -51,6 +51,31 @@ export default function Carousel() {
           />
         </SwiperSlide>
       </Swiper>
+      <div className="custom-prev absolute top-1/2 -left-6 transform -translate-y-1/2 bg-blue-100 rounded-full w-10 h-10 flex items-center justify-center cursor-pointer shadow hover:bg-blue-200 transition border">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className="w-7 h-7 text-blue-500"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </div>
+      <div className="custom-next absolute top-1/2 -right-6 transform -translate-y-1/2 bg-blue-100 rounded-full w-10 h-10 flex items-center justify-center cursor-pointer shadow hover:bg-blue-200 transition">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className="w-7 h-7 text-blue-500"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+
     </div>
   )
 }

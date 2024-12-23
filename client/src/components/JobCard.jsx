@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 
 import { Link } from 'react-router-dom'
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 
-const JobCard = ({job}) => {
-  const {_id, title, deadline, category, min_price, max_price, description} = job ||{};
+const JobCard = ({ job }) => {
+  const { _id, title, deadline, category, min_price, max_price, description,
+    bid_count } = job || {};
   return (
     <Link
       to={`/job/${_id}`}
@@ -12,10 +13,10 @@ const JobCard = ({job}) => {
     >
       <div className='flex items-center justify-between'>
         <span className='text-xs font-light text-gray-800 '>
-          Deadline: {format(new Date (deadline), 'P')}
+          Deadline: {format(new Date(deadline), 'P')}
         </span>
         <span className='px-3 py-1 text-[8px] text-blue-800 uppercase bg-blue-200 rounded-full '>
-         {category}
+          {category}
         </span>
       </div>
 
@@ -27,7 +28,8 @@ const JobCard = ({job}) => {
         <p className='mt-2 text-sm font-bold text-gray-600 '>
           Range: ${max_price} - ${min_price}
         </p>
-        <p className='mt-2 text-sm font-bold text-gray-600 '>Total Bids: 0</p>
+        <p className='mt-2 text-sm font-bold text-gray-600 '>Total Bids: {
+          bid_count}</p>
       </div>
     </Link>
   )

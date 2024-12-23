@@ -1,26 +1,27 @@
-import axios from 'axios';
 import { format } from 'date-fns';
 import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
+import useAxiosSecure from '../hook/AxiosSecure';
 
 const MyPostedJobs = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
     fetchAllJobs();
   }, [user])
   const fetchAllJobs = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/jobs/${user?.email}`)
+    const { data } = await axiosSecure.get(`/jobs/${user?.email}`)
     setJobs(data);
   }
 
   //delete funtionality
   const handleDelete = async id => {
     try {
-      const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/job/${id}`)
-      console.log(data);
+      const { data } = await axiosSecure.delete(`/job/${id}`)
+      // console.log(data);
       toast.success('Data Deleted Successfully!');
       fetchAllJobs();
     }
@@ -37,11 +38,10 @@ const MyPostedJobs = () => {
             <p>Are Your <b>Sure?</b></p>
           </div>
           <div className='flex gap-2'>
-            <button className='bg-red-400 text-white px-3 py-1 rounded-md' onClick={() => 
-             {
+            <button className='bg-red-400 text-white px-3 py-1 rounded-md' onClick={() => {
               toast.dismiss(t.id)
               handleDelete(id);
-             }}>Yes</button>
+            }}>Yes</button>
             <button className='bg-green-400 text-white px-3 py-1 rounded-md' onClick={() => toast.dismiss(t.id)}>Cencle</button>
           </div>
         </div>
@@ -126,8 +126,7 @@ const MyPostedJobs = () => {
                       <td className='px-4 py-4 text-sm whitespace-nowrap'>
                         <div className='flex items-center gap-x-2'>
                           <p
-                            className={`px-3 py-1 ${job.category === 'Web Development' && 'text-blue-500 bg-blue-100/60'} ${job.category === 'Graphics Design' && 'text-green-500 bg-green-100/60'} ${job.category === 'Digital Marketing' && 'text-red-500 bg-red-100/60'} text-xs  rounded-full`}
-                          >
+                            className={`px-3 py-1 ${job.category === 'Web Development' && 'text-blue-500 bg-blue-100/60'} ${job.category === 'Graphics Design' && 'text-green-500 bg-green-100/60'} ${job.category === 'Digital Marketing' && 'text-red-500 bg-red-100/60'} text-xs  rounded-full`}>
                             {job.category}
                           </p>
                         </div>
